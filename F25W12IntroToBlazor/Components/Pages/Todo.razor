@@ -1,0 +1,33 @@
+﻿@page "/todo"
+@rendermode InteractiveServer
+
+<PageTitle>Todo</PageTitle>
+
+<h3>Todo</h3>
+
+<input type="text" placeholder="Something to do..." @bind="newTodo" />
+<button @onclick="AddTodo">Add Todo</button>
+
+<ul>
+    @foreach (var todo in todos)
+    {
+        <li>@todo.Title</li>
+    }
+</ul>
+
+@code {
+    private List<TodoItem> todos = new();
+    private string newTodo = "";
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            TodoItem todo = new();
+            todo.Title = newTodo;
+            todos.Add(todo);
+
+            newTodo = "";
+        }
+    }
+}
